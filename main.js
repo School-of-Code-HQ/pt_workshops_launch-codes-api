@@ -35,8 +35,6 @@ async function getMessages(id) {
 }
 
 async function getDog() {
-  let promises = [];
-
   for (let i = 1; i <= 12; i++) {
     const person = await getPersonDetails(i);
     if (person.species.toLowerCase() === "dog") {

@@ -1,11 +1,13 @@
+const result = document.querySelector("#result");
+
 async function solvePuzzle() {
   const logs = await getLogs();
   const firstSuspectId = logs[5].who;
   const firstSuspectDetails = await getPersonDetails(firstSuspectId);
   const firstSuspectMessages = await getMessages(firstSuspectId);
   const dog = await getDog();
-  const launchCodeSubmission = await submitLaunchCodes(dog.name.toUpperCase());
-  console.log(launchCodeSubmission);
+  const launchCodeSubmission = await submitLaunchCodes("LAUNCH");
+  result.src = launchCodeSubmission.img;
 }
 
 async function getLogs() {
@@ -33,26 +35,22 @@ async function getMessages(id) {
 }
 
 async function getDog() {
+  let promises = [];
+
   for (let i = 1; i <= 12; i++) {
-    const response = await fetch(
-      `https://task-escape-api.herokuapp.com/api/personnel/${i}`
-    );
-    const person = await response.json();
+    const person = await getPersonDetails(i);
     if (person.species.toLowerCase() === "dog") {
       return person;
     }
   }
+
+  const crew = await Promise.resolve(promises);
+  console.log(crew);
 }
 
 async function submitLaunchCodes(code) {
-  const codeSubmission = { enter: code };
-
   let requestOptions = {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(codeSubmission),
   };
 
   const response = await fetch(
@@ -60,8 +58,8 @@ async function submitLaunchCodes(code) {
     requestOptions
   );
 
-  const success = await response.json();
-  return success;
+  const result = await response.json();
+  return result;
 }
 
 solvePuzzle();

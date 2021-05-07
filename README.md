@@ -10,4 +10,6 @@ Solve the API puzzle and write a script which sends the launch codes! Your chall
 
 Finding the solution is only the first step - we want you to write a script which uses multiple API requests to arrive at the solution programatically. So, whatever steps you took to investigate the launch codes, you should write these steps out as functions that are called one after another, connecting the trail of breadcrumbs which end ina successful POST request.
 
+Once you have solved the problem programatically, try and solve the puzzle in the least possible number of steps.
+
 Have fun!
